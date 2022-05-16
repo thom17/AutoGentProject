@@ -95,16 +95,20 @@ class System:
     relatedRqNum = 15
     usecaseNum = 10
 
-    def __init__(self, rqSize):
+    def __init__(self, rqSize = 50):
+        """
+        :param rqSize: 요구사항 테이블 사이즈.
+        """
         self.id = "Sys" + str(System.systemNum)
         self.name = self.id
         self.setRq(rqSize)
         self.setUsecase(System.usecaseNum)
         System.systemNum += 1
+        
 
     def setRq(self, rqSize):
         self.rqList = []
-        source = np.arange(1, rqSize + 1)
+        source = np.arange(rqSize) #1, rqSize+1
         random.shuffle(source)
 
         select = sorted(source[0:System.relatedRqNum])

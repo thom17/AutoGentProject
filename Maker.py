@@ -17,6 +17,7 @@ def makeUseCaseSpec(uc):
     table = []
     sys = uc.system
     table.append(Line.makeArray(["Usecase Specific"]))
+    table.append(Line.makeArray(["Usecase Name", uc.id+"_name"]))
     table.append(Line.makeArray(["System Id", sys.id]))
     table.append(Line.makeArray(["UC Id", uc.id]))
     table.append(Line.makeArray(["desc", uc.desc]))
@@ -53,7 +54,7 @@ class Line:
 rqTable = data.RqTable()
 makeRqTable(rqTable)
 
-sys = data.System(50)
+sys = data.System()
 for uc in sys.useCaseList:
     makeUseCaseSpec(uc)
 
