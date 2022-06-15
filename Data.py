@@ -45,20 +45,29 @@ class RqTable:
         return [req.id, req.desc, req.name, req.type, req.department, req.filePath]
 
 class Usecase:
+    """
+
+    """
     ucNum = 1
     flowNum = 8
     relatedRqNum = 4
 
     @staticmethod
-    def makeRqList(rqSource, choiceNum):
-        rqList = []
+    def make_rq_list(rq_source, choice_num):
+        """
+        관련 요구사항을 선택하여 반환하기.\n
+        :param rq_source: 원본 소스 (여기에서 선택)
+        :param choice_num: 선택할 개수 (사이즈)
+        :return: list -> rq_source 에서 무작위로  choice_num 만큼 선택된 리스트
+        """
+        rq_list = []
         source = np.arange(0, System.relatedRqNum)
         random.shuffle(source)
 
-        select = sorted(source[0:choiceNum])
+        select = sorted(source[0:choice_num])
         for i in select:
-            rqList.append(rqSource[i])
-        return rqList
+            rq_list.append(rq_source[i])
+        return rq_list
 
     def __init__(self, id, relatedRq, useActor, system):
         self.system = system
@@ -92,13 +101,15 @@ class Usecase:
 
 class System:
     systemNum = 1
-    relatedRqNum = 15
+    relatedRqNum = 10 #관련된 요구사항 개수.
     usecaseNum = 10
 
     def __init__(self, rqSize = 50):
         """
         :param rqSize: 요구사항 테이블 사이즈.
         """
+        self.useCaseList = []
+        self.rqList = []
         self.id = "Sys" + str(System.systemNum)
         self.name = self.id
         self.setRq(rqSize)
@@ -107,7 +118,11 @@ class System:
         
 
     def setRq(self, rqSize):
-        self.rqList = []
+        """
+        관련된 요구사항 저장하기.
+        :param rqSize: 저장할 요구사항의 개수
+        :return: self.rqList에 관련된 요구사항이 저장됨.
+        """
         source = np.arange(rqSize) #1, rqSize+1
         random.shuffle(source)
 
@@ -120,12 +135,11 @@ class System:
         # print("set Rq", rqSize)
 
     def setUsecase(self, ucNum):
-        self.useCaseList = []
         i = 0
         while i < ucNum:
             i += 1
             id = "UC-" + str(i)
-            rqList = Usecase.makeRqList(self.rqList, Usecase.relatedRqNum)
+            rqList = Usecase.make_rq_list(self.rqList, Usecase.relatedRqNum)
             actor = "Actor-1"
             self.useCaseList.append(Usecase(id, rqList, actor, self))
 

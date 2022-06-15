@@ -53,10 +53,13 @@ class Line:
 
 rqTable = data.RqTable()
 makeRqTable(rqTable)
-
-sys = data.System()
-for uc in sys.useCaseList:
-    makeUseCaseSpec(uc)
+sysList = []
+for i in range(5):
+    sysList.append(data.System())
+for sys in sysList:
+    for uc in sys.useCaseList:
+        makeUseCaseSpec(uc)
 
 
 "Usecase Spec,,,,"
+
